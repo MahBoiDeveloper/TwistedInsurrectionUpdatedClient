@@ -4,3 +4,9 @@ Main features/improvements:
 * Restored Discord app id;
 * Add Russian language via client's L10N;
 * Fixed individual mission selection.
+## Installation
+0. Download repository files
+1. Drop them to the game folder and accept file replacing
+2. Launch `TILauncher.exe`
+3. ...
+4. Profit!
