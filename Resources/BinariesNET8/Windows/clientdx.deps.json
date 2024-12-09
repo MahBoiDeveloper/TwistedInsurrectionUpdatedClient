@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "clientdx/0.1.0-beta1595": {
+      "clientdx/2.11.0-beta0157": {
         "dependencies": {
           "DTAConfig": "1.0.0",
           "DiscordRichPresence": "1.1.3.18",
-          "GitVersion.MsBuild": "5.11.1",
+          "GitVersion.MsBuild": "5.12.0",
           "Microsoft.Extensions.Hosting": "8.0.0",
           "NETStandard.Library": "2.0.3",
           "OpenMcdf": "2.2.1.12",
-          "SixLabors.ImageSharp": "2.1.7",
+          "SixLabors.ImageSharp": "2.1.9",
           "System.DirectoryServices": "8.0.0",
           "System.IO.FileSystem": "4.3.0",
           "System.Management": "8.0.0",
@@ -36,7 +36,7 @@
           }
         }
       },
-      "GitVersion.MsBuild/5.11.1": {},
+      "GitVersion.MsBuild/5.12.0": {},
       "Libuv/1.9.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0"
@@ -720,17 +720,17 @@
           }
         }
       },
-      "Rampastring.XNAUI.WindowsDX/2.3.20": {
+      "Rampastring.XNAUI.WindowsDX/2.3.22": {
         "dependencies": {
           "MonoGame.Framework.WindowsDX": "3.8.1.303",
           "Rampastring.Tools": "2.0.6",
-          "SixLabors.ImageSharp": "2.1.7",
+          "SixLabors.ImageSharp": "2.1.9",
           "TextCopy": "6.2.1"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Rampastring.XNAUI.WindowsDX.dll": {
-            "assemblyVersion": "2.3.20.0",
-            "fileVersion": "2.3.20.0"
+            "assemblyVersion": "2.3.22.0",
+            "fileVersion": "2.3.22.0"
           }
         }
       },
@@ -870,7 +870,7 @@
           }
         }
       },
-      "SixLabors.ImageSharp/2.1.7": {
+      "SixLabors.ImageSharp/2.1.9": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "5.0.0",
           "System.Text.Encoding.CodePages": "8.0.0"
@@ -878,7 +878,7 @@
         "runtime": {
           "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.1.7.0"
+            "fileVersion": "2.1.9.0"
           }
         }
       },
@@ -1836,13 +1836,13 @@
       "ClientCore/1.0.0": {
         "dependencies": {
           "Rampastring.Tools": "2.0.6",
-          "Rampastring.XNAUI.WindowsDX": "2.3.20",
+          "Rampastring.XNAUI.WindowsDX": "2.3.22",
           "System.Text.Encoding.CodePages": "8.0.0"
         },
         "runtime": {
           "ClientCore.dll": {
             "assemblyVersion": "1.0.0",
-            "fileVersion": "0.1.0.0"
+            "fileVersion": "2.11.0.0"
           }
         }
       },
@@ -1853,7 +1853,7 @@
         "runtime": {
           "ClientGUI.dll": {
             "assemblyVersion": "1.0.0",
-            "fileVersion": "0.1.0.0"
+            "fileVersion": "2.11.0.0"
           }
         }
       },
@@ -1865,7 +1865,7 @@
         "runtime": {
           "ClientUpdater.dll": {
             "assemblyVersion": "1.0.0",
-            "fileVersion": "0.1.0.0"
+            "fileVersion": "2.11.0.0"
           }
         }
       },
@@ -1877,14 +1877,14 @@
         "runtime": {
           "DTAConfig.dll": {
             "assemblyVersion": "1.0.0",
-            "fileVersion": "0.1.0.0"
+            "fileVersion": "2.11.0.0"
           }
         }
       }
     }
   },
   "libraries": {
-    "clientdx/0.1.0-beta1595": {
+    "clientdx/2.11.0-beta0157": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1896,12 +1896,12 @@
       "path": "discordrichpresence/1.1.3.18",
       "hashPath": "discordrichpresence.1.1.3.18.nupkg.sha512"
     },
-    "GitVersion.MsBuild/5.11.1": {
+    "GitVersion.MsBuild/5.12.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JlJB4dAc/MpLQvbF8OeyMKotDo5EcgU2pXmB+MlTe64B1Y0fc9GTMiAHiyUiHLnFRnOtrcSi1C3BsfRTmlD0sA==",
-      "path": "gitversion.msbuild/5.11.1",
-      "hashPath": "gitversion.msbuild.5.11.1.nupkg.sha512"
+      "sha512": "sha512-dJuigXycpJNOiLT9or7mkHSkGFHgGW3/p6cNNYEKZBa7Hhp1FdX/cvqYWWYhRLpfoZOedeA7aRbYiOB3vW/dvA==",
+      "path": "gitversion.msbuild/5.12.0",
+      "hashPath": "gitversion.msbuild.5.12.0.nupkg.sha512"
     },
     "Libuv/1.9.1": {
       "type": "package",
@@ -2274,12 +2274,12 @@
       "path": "rampastring.tools/2.0.6",
       "hashPath": "rampastring.tools.2.0.6.nupkg.sha512"
     },
-    "Rampastring.XNAUI.WindowsDX/2.3.20": {
+    "Rampastring.XNAUI.WindowsDX/2.3.22": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-leOJoaWWBZHxAKS33w1nVQP2jXGP2baaVWzkYwV5ZUbnscwpPBxky5pBgVt90F4APWAJ+rVQe2/XgLHcbBFNUA==",
-      "path": "rampastring.xnaui.windowsdx/2.3.20",
-      "hashPath": "rampastring.xnaui.windowsdx.2.3.20.nupkg.sha512"
+      "sha512": "sha512-6i5pVD9Ba/N5xp5mkzH3fAw6S2tSWEH7my2YdpMDp4Bvf9uOougFAjG1bNxDfIbOpk7DZLvqR1vGFXGvuQhOEQ==",
+      "path": "rampastring.xnaui.windowsdx/2.3.22",
+      "hashPath": "rampastring.xnaui.windowsdx.2.3.22.nupkg.sha512"
     },
     "runtime.native.System/4.0.0": {
       "type": "package",
@@ -2372,12 +2372,12 @@
       "path": "sharpdx.xinput/4.0.1",
       "hashPath": "sharpdx.xinput.4.0.1.nupkg.sha512"
     },
-    "SixLabors.ImageSharp/2.1.7": {
+    "SixLabors.ImageSharp/2.1.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CiOV86pE4v1U850lO8zTRXQMysFCo40DJnHwxX8mIJbJ/unr7I9avhHqCh3BvU0sOSDdCp/2LcIz+7zVCWjMZw==",
-      "path": "sixlabors.imagesharp/2.1.7",
-      "hashPath": "sixlabors.imagesharp.2.1.7.nupkg.sha512"
+      "sha512": "sha512-VcjfKbOExie3RgZGrQL1jJMI4iZ3J9B6ifDo2QpDVJUYhTZKVcKnBhpNOHqbvNjHgadAks1jzhRjB7OZet1PJA==",
+      "path": "sixlabors.imagesharp/2.1.9",
+      "hashPath": "sixlabors.imagesharp.2.1.9.nupkg.sha512"
     },
     "System.AppContext/4.1.0": {
       "type": "package",
