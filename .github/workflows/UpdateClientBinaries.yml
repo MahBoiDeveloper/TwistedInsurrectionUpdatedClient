@@ -7,7 +7,7 @@ on:
 
 jobs:
   download-release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -27,8 +27,4 @@ jobs:
 
     - name: Extract release contents
       run: |
-        unzip xna-cncnet-client-*.zip -d Resources
-
-    - name: Clean up
-      run: |
-        rm xna-cncnet-client-*.zip
+        7z x xna-cncnet-client-*.7z -oResources
