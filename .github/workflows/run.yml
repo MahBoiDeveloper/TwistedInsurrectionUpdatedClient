@@ -10,7 +10,7 @@ jobs:
     - name: Trigger GitHub API to update binaries
       run: |
         curl \
-            -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/MahBoiDeveloper/TwistedInsurrectionUpdatedClient/actions/workflows/UpdateClientBinaries.yml/dispatches \
-            -d '{"ref":"main"}'
+        -X POST \
+        -H "Accept: application/vnd.github.v3+json" \
+        https://api.github.com/repos/MahBoiDeveloper/TwistedInsurrectionUpdatedClient/actions/workflows/UpdateClientBinaries.yml/dispatches \
+        -d '{"ref":"main"}'
