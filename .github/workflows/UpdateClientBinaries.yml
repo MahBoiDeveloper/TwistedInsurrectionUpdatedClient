@@ -13,7 +13,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Download Cppcheck
+    - name: Download latest XNA client release
       uses: robinraju/release-downloader@v1
       with:
         repository: CnCNet/xna-cncnet-client
@@ -23,3 +23,11 @@ jobs:
     - name: Extract release contents
       run: |
         7z x xna-cncnet-client-*.7z -oResources
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        # ${{github.sha}} - commit long hash name
+        name: test-${{github.sha}}
+        # zip all content in the "build\exe" folder
+        path: .
