@@ -23,6 +23,42 @@ jobs:
     - name: Extract release contents
       run: |
         7z x xna-cncnet-client-*.7z -oResources
+        rm xna-cncnet-client-*.7z
+
+    - name: Check for changes
+      id: git_diff
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        if [[ -z "$(git status --porcelain Resources)" ]]; then
+          echo "No changes to commit."
+          echo "changed=false" >> $GITHUB_ENV
+        else
+          echo "Changes detected."
+          echo "changed=true" >> $GITHUB_ENV
+        fi
+
+    - name: Commit and push changes
+      if: env.changed == 'true'
+      run: |
+        BRANCH="update-xna-client-${release_tag}"
+        git checkout -b "$BRANCH"
+        git add Resources
+        git commit -m "Update XNA CnCNet Client to $release_tag"
+        git push origin "$BRANCH"
+
+    - name: Create Pull Request
+      if: env.changed == 'true'
+      uses: peter-evans/create-pull-request@v7
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: update-xna-client-${{ env.release_tag }}
+        title: "Update XNA CnCNet Client to ${{ env.release_tag }}"
+        body: |
+          Automated update to XNA CnCNet Client binaries.
+
+          **Release:** [${{ env.release_tag }}](${{ env.asset_url }})
+        base: main
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
