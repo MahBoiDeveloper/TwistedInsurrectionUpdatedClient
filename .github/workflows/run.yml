@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # This allows manual triggering from GitHub Actions UI
 
 jobs:
-  download-release:
+  update:
     runs-on: windows-latest
     steps:
     - name: Trigger GitHub API to update binaries
