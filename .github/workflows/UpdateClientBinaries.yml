@@ -1,0 +1,39 @@
+name: Update XNA CnCNet Client Release
+
+on:
+  workflow_dispatch:  # This allows manual triggering from GitHub Actions UI
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight (UTC), adjust to your needs
+
+jobs:
+  download-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq unzip
+
+    - name: Get latest release tag
+      id: release_tag
+      run: |
+        RELEASE_TAG=$(curl -s https://api.github.com/repos/cncnet/xna-cncnet-client/releases/latest | jq -r .tag_name)
+        echo "Latest release: $RELEASE_TAG"
+        echo "release_tag=$RELEASE_TAG" >> $GITHUB_ENV
+
+    - name: Download latest release assets
+      run: |
+        RELEASE_URL="https://github.com/cncnet/xna-cncnet-client/releases/download/$RELEASE_TAG/xna-cncnet-client-$RELEASE_TAG.zip"
+        curl -L -o xna-cncnet-client.zip $RELEASE_URL
+
+    - name: Extract release contents
+      run: |
+        unzip xna-cncnet-client.zip -d Resources
+
+    - name: Clean up
+      run: |
+        rm xna-cncnet-client.zip
