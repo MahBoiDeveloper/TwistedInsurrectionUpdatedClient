@@ -50,11 +50,6 @@ jobs:
 
     - name: Create Pull Request
       if: env.changed == 'true'
-      uses: peter-evans/create-pull-request@v7
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: update-xna-client
-        title: "Update XNA CnCNet Client binaries"
-        body: "Automated update of Resources folder from latest release."
-        base: main
-
+      run: gh pr create -B main -H updat-xna-client --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
