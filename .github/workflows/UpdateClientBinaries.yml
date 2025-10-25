@@ -22,18 +22,18 @@ jobs:
       id: release_tag
       run: |
         RELEASE_TAG=$(curl -s https://api.github.com/repos/cncnet/xna-cncnet-client/releases/latest | jq -r .tag_name)
-        echo "Latest release: $RELEASE_TAG"
-        echo "release_tag=$RELEASE_TAG" >> $GITHUB_ENV
+        echo "Latest release: ${{RELEASE_TAG}}"
+        echo "release_tag=${{RELEASE_TAG}}" >> $GITHUB_ENV
 
     - name: Download latest release assets
       run: |
-        RELEASE_URL="https://github.com/cncnet/xna-cncnet-client/releases/download/$RELEASE_TAG/xna-cncnet-client-$RELEASE_TAG.zip"
-        curl -L -O $RELEASE_URL
+        RELEASE_URL="https://github.com/cncnet/xna-cncnet-client/releases/download/$RELEASE_TAG/xna-cncnet-client-${{RELEASE_TAG}}.zip"
+        curl -L -O ${{RELEASE_TAG}}
 
     - name: Extract release contents
       run: |
-        unzip xna-cncnet-client-$RELEASE_TAG.zip -d Resources
+        unzip xna-cncnet-client-${{RELEASE_TAG}}.zip -d Resources
 
     - name: Clean up
       run: |
-        rm xna-cncnet-client-$RELEASE_TAG.zip
+        rm xna-cncnet-client-${{RELEASE_TAG}}.zip
