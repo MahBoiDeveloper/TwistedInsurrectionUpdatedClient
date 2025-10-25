@@ -2,8 +2,6 @@ name: Update XNA CnCNet Client Release
 
 on:
   workflow_dispatch:  # This allows manual triggering from GitHub Actions UI
-  schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight (UTC), adjust to your needs
 
 jobs:
   download-release:
