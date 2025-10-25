@@ -9,9 +9,4 @@ jobs:
     steps:
     - name: Trigger GitHub API to update binaries
       run: |
-        gh api \
-        --method POST \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/MahBoiDeveloper/TwistedInsurrectionUpdatedClient/actions/workflows/UpdateClientBinaries.yml/dispatches \
-        -f 'ref=main'
+        gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/MahBoiDeveloper/TwistedInsurrectionUpdatedClient/actions/workflows/UpdateClientBinaries.yml/dispatches
