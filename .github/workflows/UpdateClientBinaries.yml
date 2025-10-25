@@ -28,12 +28,12 @@ jobs:
     - name: Download latest release assets
       run: |
         RELEASE_URL="https://github.com/cncnet/xna-cncnet-client/releases/download/$RELEASE_TAG/xna-cncnet-client-$RELEASE_TAG.zip"
-        curl -L -o xna-cncnet-client.zip $RELEASE_URL
+        curl -L -O $RELEASE_URL
 
     - name: Extract release contents
       run: |
-        unzip xna-cncnet-client.zip -d Resources
+        unzip xna-cncnet-client-$RELEASE_TAG.zip -d Resources
 
     - name: Clean up
       run: |
-        rm xna-cncnet-client.zip
+        rm xna-cncnet-client-$RELEASE_TAG.zip
