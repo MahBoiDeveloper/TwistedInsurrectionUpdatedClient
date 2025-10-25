@@ -18,22 +18,17 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y curl jq unzip
 
-    - name: Get latest release tag
-      id: release_tag
-      run: |
-        RELEASE_TAG=$(curl -s https://api.github.com/repos/cncnet/xna-cncnet-client/releases/latest | jq -r .tag_name)
-        echo "Latest release: ${{RELEASE_TAG}}"
-        echo "release_tag=${{RELEASE_TAG}}" >> $GITHUB_ENV
-
-    - name: Download latest release assets
-      run: |
-        RELEASE_URL="https://github.com/cncnet/xna-cncnet-client/releases/download/$RELEASE_TAG/xna-cncnet-client-${{RELEASE_TAG}}.zip"
-        curl -L -O ${{RELEASE_TAG}}
+    - name: Download Cppcheck
+      uses: robinraju/release-downloader@v1
+      with:
+        repository: CnCNet/xna-cncnet-client
+        latest: true
+        fileName: xna-cncnet-client*
 
     - name: Extract release contents
       run: |
-        unzip xna-cncnet-client-${{RELEASE_TAG}}.zip -d Resources
+        unzip xna-cncnet-client-*.zip -d Resources
 
     - name: Clean up
       run: |
-        rm xna-cncnet-client-${{RELEASE_TAG}}.zip
+        rm xna-cncnet-client-*.zip
