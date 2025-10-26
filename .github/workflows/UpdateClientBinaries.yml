@@ -39,9 +39,9 @@ jobs:
       id: check_changes
       run: |
         if (git status --porcelain) {
-          echo "changed=true" >> env:GITHUB_ENV
+          echo "changed=true" >> $env:GITHUB_ENV
         } else {
-          echo "changed=false" >> env:GITHUB_ENV
+          echo "changed=false" >> $env:GITHUB_ENV
         }
 
     - name: Commit and push changes
