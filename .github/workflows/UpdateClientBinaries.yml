@@ -20,7 +20,7 @@ jobs:
 
     - name: Extract release contents
       run: |
-        7z x xna-cncnet-client-*.7z -o.\
+        7z x xna-cncnet-client-*.7z
         rm xna-cncnet-client-*.7z
 
     - name: Configure Git
