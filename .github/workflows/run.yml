@@ -3,12 +3,19 @@ name: Trigger Update
 on:
   workflow_dispatch:  # This allows manual triggering from GitHub Actions UI
 
+env:
+  OWNER_NAME: MahBoiDeveloper
+  REPO_NAME: TwistedInsurrectionUpdatedClient
+  WORKFLOW_FILE: UpdateClientBinaries.yml
+  TARGET_BRANCH: main
+
 jobs:
-  update:
+  trigger-update-in-configs:
     runs-on: windows-latest
     steps:
     - name: Trigger GitHub API to update binaries
       env:
         GH_TOKEN: ${{ github.token }}
+      shell: 
       run: |
-        gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/MahBoiDeveloper/TwistedInsurrectionUpdatedClient/actions/workflows/UpdateClientBinaries.yml/dispatches -f 'ref=main'
+        gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/${{ env.OWNER_NAME }}/${{ env.REPO_NAME }}/actions/workflows/${{ env.WORKFLOW_FILE }}/dispatches -f 'ref=${{ env.TARGET_BRANCH }}'
