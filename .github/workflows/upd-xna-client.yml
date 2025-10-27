@@ -15,47 +15,58 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout Repo
       uses: actions/checkout@v3
-
-    - name: Download latest XNA client release
+    
+    - name: Configure Git Repo
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git branch -d ${{ env.UPDATE_BRANCH_NAME }}
+        git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
+    
+    - name: Download Latest Release
+      id: download
       uses: robinraju/release-downloader@v1
       with:
         repository: CnCNet/xna-cncnet-client
         latest: true
         fileName: xna-cncnet-client*
 
-    - name: Extract Release Contents
+    - name: Get Current Client Version
+      id: current_version
       run: |
-        $repo = D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}
-        rm -r -fo "$repo\Resources\Binaries"
-        rm -r -fo "$repo\Resources\BinariesNET8"
-        rm -fo ""$repo\Resources\client*.exe"
-        rm -fo ""$repo\Resources\client*.pdb"
-        7z x xna-cncnet-client-*.7z -o$repo
-        rm xna-cncnet-client-*.7z
-    
-    - name: Configure Git
+        $currentVersion = (Get-ItemProperty -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe" -Name VersionInfo).VersionInfo.FileVersion -replace '\.0$', ''
+        echo "current_version=$currentVersion" >> $GITHUB_ENV
+        echo "Current client version: $currentVersion"
+        echo "Downloaded client version: ${{ steps.download.outputs.tag_name }}"
+
+    - name: Compare Versions
+      id: check_update
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-    
-    - name: Check For Changes
-      id: check_changes
-      run: |
-        if (git status --porcelain) {
-          echo "changed=true" >> $env:GITHUB_ENV
+        if ($env:current_version -ne '${{ steps.download.outputs.tag_name }}') {
+          echo "update_required=true" >> $GITHUB_ENV
         } else {
-          echo "changed=false" >> $env:GITHUB_ENV
+          echo "update_required=false" >> $GITHUB_ENV
         }
-    
-    - name: Commit And Push PR
-      if: env.changed == 'true'
+
+    - name: Extract Release Contents
+      if: env.update_required == 'true'
+      run: |
+        rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\Binaries"
+        rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\BinariesNET8"
+        7z x xna-cncnet-client-*.7z -y -oD:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}
+        rm xna-cncnet-client-*.7z
+
+    - name: Commit And Push Branch
+      if: env.update_required == 'true'
+      run: |
+        git commit -am "${{ env.COMMIT_MESSAGE }}"
+        git push --force origin ${{ env.UPDATE_BRANCH_NAME }}
+
+    - name: Open PR
+      if: env.update_required == 'true'
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
-        git add Resources
-        git commit -m "${{ env.COMMIT_MESSAGE }}"
-        git push origin ${{ env.UPDATE_BRANCH_NAME }}
         gh pr create -B main -H ${{ env.UPDATE_BRANCH_NAME }} --title '${{ env.PR_TITLE }}' --body '${{ env.PR_BODY }}'
