@@ -1,4 +1,4 @@
-name: Update XNA CnCNet Client Release
+name: Update XNA CnCNet Client
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
 
     - name: Extract Release Contents
       run: |
-        $repo = "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}"
+        $repo = D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}
         rm -r -fo "$repo\Resources\Binaries"
         rm -r -fo "$repo\Resources\BinariesNET8"
         rm -fo ""$repo\Resources\client*.exe"
