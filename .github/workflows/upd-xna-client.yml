@@ -46,6 +46,7 @@ jobs:
         if ($currentVersion -eq $downloadVersion) {
           echo "update_required=false" >> $GITHUB_OUTPUT
           echo "Update doesn't required"
+          throw "Update doesn't required" 
         } else {
           echo "update_required=true" >> $GITHUB_OUTPUT
           echo "Update required"
@@ -63,6 +64,13 @@ jobs:
           git commit -am "${{ env.COMMIT_MESSAGE }}"
           git push --force origin ${{ env.UPDATE_BRANCH_NAME }}
 
-          timeout /t 10
+          # timeout /t 10
           gh pr create -B main -H ${{ env.UPDATE_BRANCH_NAME }} --title '${{ env.PR_TITLE }} ${{ steps.download.outputs.tag_name }}' --body '${{ env.PR_BODY }}'
         }
+        
+    - name: Open PR
+      if: ${{ success() }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh pr create -B main -H ${{ env.UPDATE_BRANCH_NAME }} --title '${{ env.PR_TITLE }} ${{ steps.download.outputs.tag_name }}' --body '${{ env.PR_BODY }}'
+
