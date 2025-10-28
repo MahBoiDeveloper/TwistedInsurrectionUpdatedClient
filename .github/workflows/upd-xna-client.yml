@@ -31,22 +31,26 @@ jobs:
     - name: Compare Versions
       id: check_update
       run: |
-        (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
+        # Get the current version of the clientdx.exe file
         $currentVersion = (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
-        echo "current_version=$currentVersion" >> $GITHUB_OUTPUT
-        echo "CURRENT_VERSION=$currentVersion" >> $GITHUB_ENV
         
-        echo "Current client version: ${ currentVersion }"
+        # Set the versions as output and environment variables for further steps
+        echo "current_version=$currentVersion" >> $GITHUB_ENV
+        
+        echo "Current client version: $currentVersion"
         echo "Downloaded client version: ${{ steps.download.outputs.tag_name }}"
 
-        if ('(Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""' -ne '${{ steps.download.outputs.tag_name }}') {
+        # Compare versions to check if update is required
+        if ($currentVersion -ne ${{ steps.download.outputs.tag_name }}) {
+          echo "Update required"
           echo "update_required=true" >> $GITHUB_ENV
         } else {
+          echo "Update doesn't required"
           echo "update_required=false" >> $GITHUB_ENV
         }
 
     - name: Configure Git Repo
-      if: env.update_required == 'true'
+      if: ${{ env.update_required }} == 'true'
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -54,7 +58,7 @@ jobs:
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
 
     - name: Extract Release Contents
-      if: env.update_required == 'true'
+      if: ${{ env.update_required }} == 'true'
       run: |
         rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\Binaries"
         rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\BinariesNET8"
@@ -62,13 +66,13 @@ jobs:
         rm xna-cncnet-client-*.7z
 
     - name: Commit And Push Branch
-      if: env.update_required == 'true'
+      if: ${{ env.update_required }} == 'true'
       run: |
         git commit -am "${{ env.COMMIT_MESSAGE }}"
         git push --force origin ${{ env.UPDATE_BRANCH_NAME }}
 
     - name: Open PR
-      if: env.update_required == 'true'
+      if: ${{ env.update_required }} == 'true'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
