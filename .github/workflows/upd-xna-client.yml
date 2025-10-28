@@ -28,22 +28,18 @@ jobs:
         latest: true
         fileName: xna-cncnet-client*
 
-    - name: Get Current Client Version
-      id: version
-      run: |
-        $currentVersion = (Get-ItemProperty -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe" -Name VersionInfo).VersionInfo.FileVersion -Replace "\.0$", ""
-        echo "current_version=$currentVersion" >> $GITHUB_OUTPUT
-        echo "CURRENT_VERSION=$currentVersion" >> $GITHUB_ENV
-        echo "Current client version: $currentVersion"
-        echo "Downloaded client version: ${{ steps.download.outputs.tag_name }}"
-
     - name: Compare Versions
       id: check_update
       run: |
-        echo '${{ steps.version.outputs.current_version }}'
-        echo '${{ env.CURRENT_VERSION }}'
+        (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
+        $currentVersion = (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
+        echo "current_version=$currentVersion" >> $GITHUB_OUTPUT
+        echo "CURRENT_VERSION=$currentVersion" >> $GITHUB_ENV
+        
+        echo "Current client version: ${ currentVersion }"
+        echo "Downloaded client version: ${{ steps.download.outputs.tag_name }}"
 
-        if ('${{ steps.version.outputs.current_version }}' -ne '${{ steps.download.outputs.tag_name }}') {
+        if ('(Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""' -ne '${{ steps.download.outputs.tag_name }}') {
           echo "update_required=true" >> $GITHUB_ENV
         } else {
           echo "update_required=false" >> $GITHUB_ENV
