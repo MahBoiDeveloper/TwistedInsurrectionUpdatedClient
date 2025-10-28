@@ -32,7 +32,10 @@ jobs:
       id: check_update
       run: |
         $currentVersion = (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
-        $downloadVersion = ${{ steps.download.outputs.tag_name }}
+        $downloadVersion = '${{ steps.download.outputs.tag_name }}'
+        
+        echo ${{ steps.download.outputs.tag_name }}
+
         echo "current_version=$currentVersion" >> $GITHUB_ENV
         echo "download_version=$downloadVersion" >> $GITHUB_ENV
 
@@ -47,7 +50,7 @@ jobs:
           echo "Update required"
         }
 
-        echo "update_required = $env.update_required"
+        echo "update_required = ${{ env.update_required }}"
 
     - name: Configure Git Repo
       if: ${{ env.update_required }} == 'true'
