@@ -29,31 +29,31 @@ jobs:
         fileName: xna-cncnet-client*
 
     - name: Compare Versions
-      id: check_update
+      id: check
       run: |
         $currentVersion = (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
         $downloadVersion = '${{ steps.download.outputs.tag_name }}'
         
         echo ${{ steps.download.outputs.tag_name }}
 
-        echo "current_version=$currentVersion" >> $GITHUB_ENV
-        echo "download_version=$downloadVersion" >> $GITHUB_ENV
+        echo "current_version=$currentVersion" >> $GITHUB_OUTPUT
+        echo "download_version=$downloadVersion" >> $GITHUB_OUTPUT
 
         echo "Current client version: '$currentVersion'"
         echo "Downloaded client version: '$downloadVersion'"
 
         if ($currentVersion -eq $downloadVersion) {
-          echo "env.update_required=false" >> $GITHUB_ENV
+          echo "update_required=false" >> $GITHUB_OUTPUT
           echo "Update doesn't required"
         } else {
-          echo "env.update_required=true" >> $GITHUB_ENV
+          echo "update_required=true" >> $GITHUB_OUTPUT
           echo "Update required"
         }
 
-        echo "update_required = ${{ env.update_required }}"
+        echo "update_required = ${{ steps.check.outputs.update_required }}"
 
     - name: Configure Git Repo
-      if: ${{ env.update_required }} == 'true'
+      if: ${{ steps.check.outputs.update_required }}
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -61,7 +61,7 @@ jobs:
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
 
     - name: Extract Release Contents
-      if: ${{ env.update_required }} == 'true'
+      if: ${{ steps.check.outputs.update_required }}
       run: |
         rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\Binaries"
         rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\BinariesNET8"
@@ -69,13 +69,13 @@ jobs:
         rm xna-cncnet-client-*.7z
 
     - name: Commit And Push Branch
-      if: ${{ env.update_required }} == 'true'
+      if: ${{ steps.check.outputs.update_required }}
       run: |
         git commit -am "${{ env.COMMIT_MESSAGE }}"
         git push --force origin ${{ env.UPDATE_BRANCH_NAME }}
 
     - name: Open PR
-      if: ${{ env.update_required }} == 'true'
+      if: ${{ steps.check.outputs.update_required }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
