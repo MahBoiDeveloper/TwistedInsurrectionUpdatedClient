@@ -7,23 +7,18 @@ env:
   REPO_NAME: TwistedInsurrectionUpdatedClient
   UPDATE_BRANCH_NAME: update-client-binaries
   COMMIT_MESSAGE: Update client binaries to the latest version
-  PR_TITLE: Update client binaries to the latest version
+  PR_TITLE: Update client binaries to the version
   PR_BODY: This is an automatic pull request to update client binaries triggered from CnCNet/xna-cncnet-client repository.
 
 jobs:
   publish-update-pr:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
-    
-    - name: Configure Git Repo
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git branch -d ${{ env.UPDATE_BRANCH_NAME }}
-        git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
+      with:
+        lfs: true
     
     - name: Download Latest Release
       id: download
@@ -34,21 +29,33 @@ jobs:
         fileName: xna-cncnet-client*
 
     - name: Get Current Client Version
-      id: current_version
+      id: version
       run: |
-        $currentVersion = (Get-ItemProperty -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe" -Name VersionInfo).VersionInfo.FileVersion -replace '\.0$', ''
-        echo "current_version=$currentVersion" >> $GITHUB_ENV
+        $currentVersion = (Get-ItemProperty -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe" -Name VersionInfo).VersionInfo.FileVersion -Replace "\.0$", ""
+        echo "current_version=$currentVersion" >> $GITHUB_OUTPUT
+        echo "CURRENT_VERSION=$currentVersion" >> $GITHUB_ENV
         echo "Current client version: $currentVersion"
         echo "Downloaded client version: ${{ steps.download.outputs.tag_name }}"
 
     - name: Compare Versions
       id: check_update
       run: |
-        if ($env:current_version -ne '${{ steps.download.outputs.tag_name }}') {
+        echo '${{ steps.version.outputs.current_version }}'
+        echo '${{ env.CURRENT_VERSION }}'
+
+        if ('${{ steps.version.outputs.current_version }}' -ne '${{ steps.download.outputs.tag_name }}') {
           echo "update_required=true" >> $GITHUB_ENV
         } else {
           echo "update_required=false" >> $GITHUB_ENV
         }
+
+    - name: Configure Git Repo
+      if: env.update_required == 'true'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git branch -d ${{ env.UPDATE_BRANCH_NAME }}
+        git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
 
     - name: Extract Release Contents
       if: env.update_required == 'true'
@@ -67,6 +74,6 @@ jobs:
     - name: Open PR
       if: env.update_required == 'true'
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh pr create -B main -H ${{ env.UPDATE_BRANCH_NAME }} --title '${{ env.PR_TITLE }}' --body '${{ env.PR_BODY }}'
+        gh pr create -B main -H ${{ env.UPDATE_BRANCH_NAME }} --title '${{ env.PR_TITLE }} ${{ steps.download.outputs.tag_name }}' --body '${{ env.PR_BODY }}'
