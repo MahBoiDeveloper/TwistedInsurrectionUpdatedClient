@@ -37,7 +37,7 @@ jobs:
         echo "download_version=$downloadVersion" >> $GITHUB_ENV
 
         echo "Current client version: '$currentVersion'"
-        echo "Downloaded client version: '$download_version'"
+        echo "Downloaded client version: '$downloadVersion'"
 
         if ($currentVersion -eq $downloadVersion) {
           echo "env.update_required=false" >> $GITHUB_ENV
