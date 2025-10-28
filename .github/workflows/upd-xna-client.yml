@@ -31,23 +31,23 @@ jobs:
     - name: Compare Versions
       id: check_update
       run: |
-        # Get the current version of the clientdx.exe file
         $currentVersion = (Get-Item -Path "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\clientdx.exe").VersionInfo.FileVersion -Replace "\.0$", ""
-        
-        # Set the versions as output and environment variables for further steps
+        $downloadVersion = ${{ steps.download.outputs.tag_name }}
         echo "current_version=$currentVersion" >> $GITHUB_ENV
-        
-        echo "Current client version: $currentVersion"
-        echo "Downloaded client version: ${{ steps.download.outputs.tag_name }}"
+        echo "download_version=$downloadVersion" >> $GITHUB_ENV
 
-        # Compare versions to check if update is required
-        if ($currentVersion -ne ${{ steps.download.outputs.tag_name }}) {
-          echo "Update required"
-          echo "update_required=true" >> $GITHUB_ENV
-        } else {
+        echo "Current client version: '$currentVersion'"
+        echo "Downloaded client version: '$download_version'"
+
+        if ($currentVersion -eq $downloadVersion) {
+          echo "env.update_required=false" >> $GITHUB_ENV
           echo "Update doesn't required"
-          echo "update_required=false" >> $GITHUB_ENV
+        } else {
+          echo "env.update_required=true" >> $GITHUB_ENV
+          echo "Update required"
         }
+
+        echo "update_required = $env.update_required"
 
     - name: Configure Git Repo
       if: ${{ env.update_required }} == 'true'
