@@ -7,7 +7,7 @@ on:
 
 env:
   REPO_NAME: TwistedInsurrectionUpdatedClient
-  CLIENT_PATH: Resources
+  CLIENT_PATH: 
   UPDATE_BRANCH_NAME: update-client-binaries
   COMMIT_MESSAGE: Update client binaries to the latest version
   PR_TITLE: Update client binaries to the version
@@ -78,7 +78,7 @@ jobs:
             $deletedFiles += [Environment]::NewLine
             $deletedFiles += git diff --diff-filter=R --name-status --diff-filter=R HEAD~1 HEAD | Where-Object { $_.StartsWith('R100') } | ForEach-Object { $_.Substring(4).Trim().Split(' ')[0].Replace('/', '\') }
             $deletedFiles
-            
+
             # Check if there are any deleted files
             if ($deletedFiles.Count -eq 0)
             {
@@ -126,7 +126,6 @@ jobs:
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
                   }
-                  $updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
                 }
               }
 
