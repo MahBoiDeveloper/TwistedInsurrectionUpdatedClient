@@ -126,7 +126,7 @@ jobs:
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
                   }
-                  $updateexecContent_new += "; end entries" + [Environment]::NewLine
+                  $updateexecContent_new += "; end entries" + [Environment]::NewLine + [Environment]::NewLine
                 }
               }
 
