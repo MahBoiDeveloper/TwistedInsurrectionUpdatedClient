@@ -73,7 +73,7 @@ jobs:
           else
           {
             # Get the deleted files from git diff
-            $deletedFiles = git diff --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim() }
+            $deletedFiles = git diff --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') -or $_.StartsWith('R') } | ForEach-Object { $_.Substring(4).Trim() }
 
             # Check if there are any deleted files
             if ($deletedFiles.Count -eq 0)
