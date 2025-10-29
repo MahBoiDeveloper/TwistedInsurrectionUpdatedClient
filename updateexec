@@ -1,6 +1,38 @@
 [Rename]
 
 [Delete]
+; Generated automatically
+Resources/Binaries/OpenGL/DTAConfig.dll
+; Generated automatically
+Resources/Binaries/OpenGL/DTAConfig.pdb
+; Generated automatically
+Resources/Binaries/Windows/DTAConfig.dll
+; Generated automatically
+Resources/Binaries/Windows/DTAConfig.pdb
+; Generated automatically
+Resources/Binaries/XNA/DTAConfig.dll
+; Generated automatically
+Resources/Binaries/XNA/DTAConfig.pdb
+; Generated automatically
+Resources/BinariesNET8/OpenGL/DTAConfig.dll
+; Generated automatically
+Resources/BinariesNET8/OpenGL/DTAConfig.pdb
+; Generated automatically
+Resources/BinariesNET8/UniversalGL/DTAConfig.dll
+; Generated automatically
+Resources/BinariesNET8/UniversalGL/DTAConfig.pdb
+; Generated automatically
+Resources/BinariesNET8/Windows/DTAConfig.dll
+; Generated automatically
+Resources/BinariesNET8/Windows/DTAConfig.pdb
+; Generated automatically
+Resources/BinariesNET8/XNA/DTAConfig.dll
+; Generated automatically
+Resources/BinariesNET8/XNA/DTAConfig.pdb
+; Generated automatically
+
+
+; Generated automatically
 INI\battlefs.ini
 INI\MPMaps.pkt
 INI\theme01.ini
@@ -17,4 +49,5 @@ Map Editor\ForWindows10
 Map Renderer
 
 [ForceDeleteFolder]
+
 
