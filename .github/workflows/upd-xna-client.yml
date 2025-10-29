@@ -92,13 +92,6 @@ jobs:
               # Find the [Delete] section and its position
               $deleteSectionIndex = $updateexecContent_old.IndexOf("[Delete]")
 
-              # Prepare the new lines to insert (with comments)
-              $generatedFiles = @()
-              $generatedFiles += "; Generated automatically"
-              $generatedFiles += $deletedFiles
-              $generatedFiles += "; Generated automatically"
-              $generatedFiles += ""
-
               # Exclude path from string for config
               $exclude = "${{ env.CLIENT_PATH }}"
 
@@ -111,7 +104,8 @@ jobs:
                 # If we find section [Delete], add new deleted files
                 if ($deleteSectionIndex -eq $index)
                 {
-                  foreach($new_delete in $generatedFiles)
+                  $$updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
+                  foreach($new_delete in $deletedFiles)
                   {
                     $file = $new_delete
                     if ($exclude.Length -eq 0)
@@ -130,6 +124,7 @@ jobs:
                       }
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
+                    $$updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
                   }
                 }
               }
