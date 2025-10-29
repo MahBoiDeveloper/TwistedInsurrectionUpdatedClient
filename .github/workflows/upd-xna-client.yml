@@ -74,10 +74,11 @@ jobs:
           else
           {
             # Get the deleted and moved files from git diff
-            $deletedFiles = git diff --diff-filter=D --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim() }
+            $deletedFiles = git diff --diff-filter=D --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim().Replace('/', '\') }
             $deletedFiles += [Environment]::NewLine
-            $deletedFiles += git diff --diff-filter=R --name-status --diff-filter=R HEAD~1 HEAD | Where-Object { $_.StartsWith('R100') } | ForEach-Object { $_.Substring(4).Trim().Split(' ')[0] }
-
+            $deletedFiles += git diff --diff-filter=R --name-status --diff-filter=R HEAD~1 HEAD | Where-Object { $_.StartsWith('R100') } | ForEach-Object { $_.Substring(4).Trim().Split(' ')[0].Replace('/', '\') }
+            $deletedFiles
+            
             # Check if there are any deleted files
             if ($deletedFiles.Count -eq 0)
             {
@@ -124,8 +125,8 @@ jobs:
                       }
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
-                    $updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
                   }
+                  $updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
                 }
               }
 
