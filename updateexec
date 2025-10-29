@@ -1,6 +1,7 @@
 [Rename]
 
 [Delete]
+; Generated automaticallysources/Binaries/OpenGL/DTAConfig.dll sources/Binaries/OpenGL/DTAConfig.pdb sources/Binaries/Windows/DTAConfig.dll sources/Binaries/Windows/DTAConfig.pdb sources/Binaries/XNA/DTAConfig.dll sources/Binaries/XNA/DTAConfig.pdb sources/BinariesNET8/OpenGL/DTAConfig.dll sources/BinariesNET8/OpenGL/DTAConfig.pdb sources/BinariesNET8/UniversalGL/DTAConfig.dll sources/BinariesNET8/UniversalGL/DTAConfig.pdb sources/BinariesNET8/Windows/DTAConfig.dll sources/BinariesNET8/Windows/DTAConfig.pdb sources/BinariesNET8/XNA/DTAConfig.dll sources/BinariesNET8/XNA/DTAConfig.pdb; Generated automatically
 INI\battlefs.ini
 INI\MPMaps.pkt
 INI\theme01.ini
@@ -17,4 +18,5 @@ Map Editor\ForWindows10
 Map Renderer
 
 [ForceDeleteFolder]
+
 
