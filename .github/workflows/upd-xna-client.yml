@@ -120,7 +120,14 @@ jobs:
                     }
                     else
                     {
-                      $file = $new_delete.Remove(0, ($exclude.Length + 1))
+                      try
+                      {
+                        $file = ($new_delete.Remove(0, ($exclude.Length + 1)))
+                      }
+                      catch
+                      {
+                        $file = $new_delete
+                      }
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
                   }
