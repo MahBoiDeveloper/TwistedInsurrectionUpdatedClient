@@ -7,6 +7,7 @@ on:
 
 env:
   REPO_NAME: TwistedInsurrectionUpdatedClient
+  CLIENT_PATH: Resources
   UPDATE_BRANCH_NAME: update-client-binaries
   COMMIT_MESSAGE: Update client binaries to the latest version
   PR_TITLE: Update client binaries to the version
@@ -72,8 +73,8 @@ jobs:
           }
           else
           {
-            # Get the deleted files from git diff
-            $deletedFiles = git diff --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim() }
+            # Get the deleted and moved files from git diff
+            $deletedFiles = git diff --diff-filter=DR --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') -or $_.StartsWith('R') } | ForEach-Object { $_.Substring(4).Trim() }
 
             # Check if there are any deleted files
             if ($deletedFiles.Count -eq 0)
@@ -90,11 +91,16 @@ jobs:
               $deleteSectionIndex = $updateexecContent_old.IndexOf("[Delete]")
 
               # Prepare the new lines to insert (with comments)
-              $generatedFiles = @()
+              $generatedFiles = ""
               $generatedFiles += "; Generated automatically"
               $generatedFiles += $deletedFiles
               $generatedFiles += "; Generated automatically"
               $generatedFiles += ""
+
+              # Exclude path from string for config
+              $exclude = "${{ env.CLIENT_PATH }}"
+              echo "Exclude path = "
+              $exclude
 
               # Iterate all content of old updateexec
               foreach($old_line in $updateexecContent_old)
@@ -107,7 +113,13 @@ jobs:
                 {
                   foreach($new_delete in $generatedFiles)
                   {
-                    $updateexecContent_new += $new_delete + [Environment]::NewLine
+                    $delete_file = $new_delete
+                    if ($exclude.Length -eq 0)
+                    {
+                      $delete_file = $new_delete.Remove(0, ($exclude.Length + 1))
+                      $delete_file
+                    }
+                    $updateexecContent_new += $delete_file + [Environment]::NewLine
                   }
                 }
               }
