@@ -99,8 +99,6 @@ jobs:
 
               # Exclude path from string for config
               $exclude = "${{ env.CLIENT_PATH }}"
-              echo "Exclude path = "
-              $exclude
 
               # Iterate all content of old updateexec
               foreach($old_line in $updateexecContent_old)
@@ -114,14 +112,14 @@ jobs:
                   foreach($new_delete in $generatedFiles)
                   {
                     $delete_file = $new_delete
-                    if ($exclude.Length -eq 0)
-                    {
-                      $delete_file = $new_delete
-                    }
-                    else
-                    {
-                      $delete_file = $new_delete.Remove(0, ($exclude.Length + 1))
-                    }
+                    #if ($exclude.Length -eq 0)
+                    #{
+                    #  $delete_file = $new_delete
+                    #}
+                    #else
+                    #{
+                    #  $delete_file = $new_delete.Remove(0, ($exclude.Length + 1))
+                    #}
                     $delete_file
                     $updateexecContent_new += $delete_file + [Environment]::NewLine
                   }
