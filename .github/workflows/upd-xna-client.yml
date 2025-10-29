@@ -105,7 +105,7 @@ jobs:
                 # If we find section [Delete], add new deleted files
                 if ($deleteSectionIndex -eq $index)
                 {
-                  $updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
+                  $updateexecContent_new += "; ${{ steps.download.outputs.tag_name }} (auto-generated entries for removed/renamed files)" + [Environment]::NewLine
                   foreach($new_delete in $deletedFiles)
                   {
                     $file = $new_delete
@@ -126,6 +126,7 @@ jobs:
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
                   }
+                  $updateexecContent_new += "; end entries" + [Environment]::NewLine
                 }
               }
 
