@@ -77,6 +77,9 @@ jobs:
             $deletedFiles = git diff --diff-filter=D --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim() }
             $deletedFiles += [Environment]::NewLine
             $deletedFiles += git diff --diff-filter=R --name-status --diff-filter=R HEAD~1 HEAD | Where-Object { $_.StartsWith('R100') } | ForEach-Object { $_.Substring(4).Trim().Split(' ')[0] }
+            echo "---"
+            $deletedFiles
+            echo "---"
 
             # Check if there are any deleted files
             if ($deletedFiles.Count -eq 0)
@@ -113,17 +116,19 @@ jobs:
                 {
                   foreach($new_delete in $generatedFiles)
                   {
-                    $delete_file = $new_delete
+                    $file = $new_delete
                     #if ($exclude.Length -eq 0)
                     #{
-                    #  $delete_file = $new_delete
+                    #  $file = $new_delete
                     #}
                     #else
                     #{
-                    #  $delete_file = $new_delete.Remove(0, ($exclude.Length + 1))
+                    #  $file = $new_delete.Remove(0, ($exclude.Length + 1))
                     #}
-                    $delete_file
-                    $updateexecContent_new += $delete_file + [Environment]::NewLine
+                    echo "---"
+                    $file
+                    echo "---"
+                    $updateexecContent_new += $file + [Environment]::NewLine
                   }
                 }
               }
