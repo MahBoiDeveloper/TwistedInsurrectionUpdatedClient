@@ -104,7 +104,7 @@ jobs:
                 # If we find section [Delete], add new deleted files
                 if ($deleteSectionIndex -eq $index)
                 {
-                  $$updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
+                  $updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
                   foreach($new_delete in $deletedFiles)
                   {
                     $file = $new_delete
@@ -114,17 +114,17 @@ jobs:
                     }
                     else
                     {
-                      try
+                      if ($file.StartsWith($exclude + '\'))
                       {
                         $file = ($new_delete.Remove(0, ($exclude.Length + 1)))
                       }
-                      catch
+                      else
                       {
                         $file = $new_delete
                       }
                     }
                     $updateexecContent_new += $file + [Environment]::NewLine
-                    $$updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
+                    $updateexecContent_new += "; Generated automatically" + [Environment]::NewLine
                   }
                 }
               }
