@@ -41,9 +41,11 @@ jobs:
         echo "Current client version: '$currentVersion'"
         echo "Downloaded client version: '$downloadVersion'"
 
-        if ($currentVersion -eq $downloadVersion) {
+        if ($currentVersion -eq $downloadVersion)
+        {
           echo "Update doesn't required"
-        } else {
+        } else
+        {
           echo "Update required"
           
           # Configure git
@@ -64,7 +66,7 @@ jobs:
           git commit -am "${{ env.COMMIT_MESSAGE }}"
 
           # Path to the updateexec file
-          $updateExecPath = "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\updateexec"
+          $updateExecPath = "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\${{ env.CLIENT_PATH }}\updateexec"
 
           # Check if the updateexec file exists
           if (-Not (Test-Path -Path $updateExecPath))
@@ -77,7 +79,6 @@ jobs:
             $deletedFiles = git diff --diff-filter=D --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim().Replace('/', '\') }
             $deletedFiles += [Environment]::NewLine
             $deletedFiles += git diff --diff-filter=R --name-status --diff-filter=R HEAD~1 HEAD | Where-Object { $_.StartsWith('R100') } | ForEach-Object { $_.Substring(4).Trim().Split(' ')[0].Replace('/', '\') }
-            $deletedFiles
 
             # Check if there are any deleted files
             if ($deletedFiles.Count -eq 0)
@@ -92,6 +93,13 @@ jobs:
 
               # Find the [Delete] section and its position
               $deleteSectionIndex = $updateexecContent_old.IndexOf("[Delete]")
+
+              if ($deleteSectionIndex -eq -1)
+              {
+                $delSec = "[Delete]"
+                $updateexecContent_old += [Environment]::NewLine 
+                $updateexecContent_old += $delSec
+              }
 
               # Exclude path from string for config
               $exclude = "${{ env.CLIENT_PATH }}"
