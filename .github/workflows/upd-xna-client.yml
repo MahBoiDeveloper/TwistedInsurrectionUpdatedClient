@@ -44,21 +44,86 @@ jobs:
           echo "Update doesn't required"
         } else {
           echo "Update required"
+          
+          # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Remove old branch if exist and make new one
           git branch -D ${{ env.UPDATE_BRANCH_NAME }}
           git checkout -b ${{ env.UPDATE_BRANCH_NAME }}
         
+          # Delete old binaries, unpack archive, remove archive
           rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\Binaries"
           rm -r -fo "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\Resources\BinariesNET8"
           7z x xna-cncnet-client-*.7z -y -oD:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}
           rm xna-cncnet-client-*.7z
 
+          # Commit changes
           git commit -am "${{ env.COMMIT_MESSAGE }}"
+
+          # Path to the updateexec file
+          $updateExecPath = "D:\a\${{ env.REPO_NAME }}\${{ env.REPO_NAME }}\updateexec"
+
+          # Check if the updateexec file exists
+          if (-Not (Test-Path -Path $updateExecPath))
+          {
+            echo "The file 'updateexec' does not exist. Skip updating [Delete] section."
+          }
+          else
+          {
+            # Get the deleted files from git diff
+            $deletedFiles = git diff --name-status HEAD~1 HEAD | Where-Object { $_.StartsWith('D') } | ForEach-Object { $_.Substring(1).Trim() }
+
+            # Check if there are any deleted files
+            if ($deletedFiles.Count -eq 0)
+            {
+                echo "No deleted files found in the git diff. Skip updating [Delete] section."
+            }
+            else
+            {
+              # Read the content of the updateexec file
+              $updateexecContent_old = Get-Content -Path $updateExecPath
+              $updateexecContent_new = ""
+
+              # Find the [Delete] section and its position
+              $deleteSectionIndex = $updateexecContent_old.IndexOf("[Delete]")
+
+              # Prepare the new lines to insert (with comments)
+              $generatedFiles = @()
+              $generatedFiles += "; Generated automatically"
+              $generatedFiles += $deletedFiles
+              $generatedFiles += "; Generated automatically"
+              $generatedFiles += ""
+
+              # Iterate all content of old updateexec
+              foreach($old_line in $updateexecContent_old)
+              {
+                $index = $updateexecContent_old.IndexOf($old_line)
+                $updateexecContent_new += $old_line + [Environment]::NewLine
+
+                # If we find section [Delete], add new deleted files
+                if ($deleteSectionIndex -eq $index)
+                {
+                  foreach($new_delete in $generatedFiles)
+                  {
+                    $updateexecContent_new += $new_delete + [Environment]::NewLine
+                  }
+                }
+              }
+
+              # Save the modified content back to the file
+              $updateexecContent_new | Set-Content -Path $updateExecPath
+            }
+          }
+
+          # Commit changes if there exist updateexec and client binaries have new deleted files
+          git commit --amend -am "${{ env.COMMIT_MESSAGE }}"
+
+          # Push changes
           git push --force origin ${{ env.UPDATE_BRANCH_NAME }}
 
+          # Open PR
           timeout /t 10 > nul
-
           gh pr create -B main -H ${{ env.UPDATE_BRANCH_NAME }} --title '${{ env.PR_TITLE }} ${{ steps.download.outputs.tag_name }}' --body '${{ env.PR_BODY }}'
         }
