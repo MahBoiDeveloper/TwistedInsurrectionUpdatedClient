@@ -96,7 +96,7 @@ jobs:
               $deleteSectionIndex = $updateexecContent_old.IndexOf("[Delete]")
 
               # Prepare the new lines to insert (with comments)
-              $generatedFiles = ""
+              $generatedFiles = @()
               $generatedFiles += "; Generated automatically"
               $generatedFiles += $deletedFiles
               $generatedFiles += "; Generated automatically"
