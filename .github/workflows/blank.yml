@@ -1,0 +1,20 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  publish-update-pr:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+      with:
+        lfs: true
+    - name: Checks
+      run: |
+        $currDir = (get-location).Path
+        echo $currDir
