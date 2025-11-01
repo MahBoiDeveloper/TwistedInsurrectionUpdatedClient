@@ -60,7 +60,7 @@ jobs:
           # Delete old binaries, unpack archive, remove archive
           rm -r -fo "$repoDir\Resources\Binaries"
           rm -r -fo "$repoDir\Resources\BinariesNET8"
-          7z x xna-cncnet-client-*.7z -y -o$repoDir
+          7z x xna-cncnet-client-*.7z -y
           rm xna-cncnet-client-*.7z
 
           # Commit changes
