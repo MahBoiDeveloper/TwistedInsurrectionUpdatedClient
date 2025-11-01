@@ -60,6 +60,7 @@ jobs:
 
           if ($branch_exist -eq 'true')
           {
+            $branch_exist
             echo "Branch ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }} already exist. Skip updating."
           }
           else
