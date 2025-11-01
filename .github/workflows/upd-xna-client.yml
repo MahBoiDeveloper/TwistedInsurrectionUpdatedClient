@@ -58,7 +58,11 @@ jobs:
           $branch_exist = 'false'
           git branch --list | Where-Object {$_.Contains("${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}")} | ForEach-Object { $branch_exist = 'true' }
 
-          if ($branch_exist -eq 'false')
+          if ($branch_exist -eq 'true')
+          {
+            echo "Branch ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }} already exist. Skip updating."
+          }
+          else
           {
             git branch -D ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}
             git checkout -b ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}
