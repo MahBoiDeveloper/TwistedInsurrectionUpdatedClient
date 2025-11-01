@@ -58,6 +58,7 @@ jobs:
           $branch_exist = 'false'
           git remote -v
           git branch --remote --list
+          git branch --all
           git branch --remote --list | Where-Object {$_.Contains('${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}')} | ForEach-Object { $branch_exist = 'true' }
           echo "Branch status: "
           $branch_exist
