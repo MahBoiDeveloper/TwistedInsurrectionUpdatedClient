@@ -1,0 +1,243 @@
+[Rename]
+
+[Delete]
+INI\battlefs.ini
+INI\MPMaps.pkt
+INI\theme01.ini
+INI\Default.ini
+Map Editor\FSExt.dll
+Map Editor\FSExt.dll.inj
+Map Editor\Info.txt
+Map Editor\readme marble.doc
+Map Editor\readme.txt
+Map Editor\Scripts\- MP Enable Change Owner Function.fscript
+Map Renderer\CNCMaps.exe
+Map Renderer\CNCMaps.Renderer.GUI.dat
+Map Renderer\NLog.config
+Map Renderer\OSMesa.dll
+Map Renderer\Roslyn.Compilers.CSharp.dll
+Map Renderer\Roslyn.Compilers.dll
+Resources\splashScreen.png
+Resources\Binaries\DTAUpdater.dll
+Resources\Binaries\Ionic.Zip.dll
+Resources\Binaries\MapThumbnailExtractor.dll
+Resources\Binaries\MonoGame.Framework.WindowsGL.dll
+Resources\Binaries\OpenGL\libopenal.1.dylib
+Resources\Binaries\OpenGL\libSDL2-2.0.0.dylib
+Resources\Binaries\OpenGL\NVorbis.dll
+Resources\Binaries\OpenGL\OpenTK.dll
+Resources\Binaries\OpenGL\Rampastring.XNAUI.dll
+Resources\Binaries\OpenGL\x64\libopenal.so.1
+Resources\Binaries\OpenGL\x64\libSDL2-2.0.so.0
+Resources\Binaries\OpenGL\x86\libopenal.so.1
+Resources\Binaries\OpenGL\x86\libSDL2-2.0.so.0
+Resources\Binaries\SharpDX.Direct3D11.dll
+Resources\Binaries\SharpDX.Direct3D9.dll
+Resources\Binaries\Windows\Rampastring.XNAUI.dll
+Resources\Binaries\Windows\SharpDX.RawInput.dll
+Resources\Binaries\XNA\Rampastring.XNAUI.dll
+Resources\TS Theme\cncnetlobbybg.png
+Resources\TS Theme\gamecreationoptionsbg.png
+Resources\TS Theme\gamelobbybg.png
+Resources\TS Theme\LoadingScreen.ini
+Resources\TS Theme\LoadingScreen.png
+Resources\TS Theme\loadmissionbg.png
+Resources\TS Theme\loadmpsavebg.png
+Resources\TS Theme\loadmpsavepanelbg.png
+Resources\TS Theme\logindialogbg.png
+Resources\TS Theme\missionselectorbg.png
+Resources\TS Theme\msgboxform.png
+Resources\TS Theme\MultiplayerGameLobby.ini
+Resources\TS Theme\MultiplayerGameLobbyBase.ini
+Resources\TS Theme\optionsbg.png
+Resources\TS Theme\passwordquerybg.png
+Resources\TS Theme\privatemessagebg.png
+Resources\TS Theme\scoreviewerbg.png
+Resources\TS Theme\scoreviewerpanelbg.png
+Resources\TS Theme\SkirmishLobby.ini
+Resources\TS Theme\slocindicatorr.png
+Resources\TS Theme\slocindicatorx.png
+Resources\TS Theme\sortAlphaActive.png
+Resources\TS Theme\sortAlphaInactive.png
+Resources\TS Theme\updatequerybg.png
+Resources\TS Theme\updaterbg.png
+Map Editor\ForWindows10\aqrit.cfg
+Map Editor\ForWindows10\ddraw.dll
+Map Editor\ForWindows10\ddwrapper_readme.html
+Map Editor\ForWindows10\Info.txt
+Resources\TS Theme\110pxbtn.png
+Resources\TS Theme\110pxbtn_c.png
+Resources\TS Theme\121pxbtn.png
+Resources\TS Theme\121pxbtn_c.png
+Resources\TS Theme\133pxbtn.png
+Resources\TS Theme\133pxbtn_c.png
+Resources\TS Theme\133pxtab.png
+Resources\TS Theme\133pxtab_c.png
+Resources\TS Theme\142pxbtn.png
+Resources\TS Theme\142pxbtn_c.png
+Resources\TS Theme\160pxbtn.png
+Resources\TS Theme\160pxbtn_c.png
+Resources\TS Theme\75pxbtn.png
+Resources\TS Theme\75pxbtn_c.png
+Resources\TS Theme\92pxbtn.png
+Resources\TS Theme\92pxbtn_c.png
+Resources\TS Theme\97pxbtn.png
+Resources\TS Theme\97pxbtn_c.png
+Resources\TS Theme\bar_ll.png
+Resources\TS Theme\bar_lr.png
+Resources\TS Theme\bar_ul.png
+Resources\TS Theme\bar_ur.png
+Resources\TS Theme\button.wav
+Resources\TS Theme\CampaignSelector.ini
+Resources\TS Theme\checkbox.wav
+Resources\TS Theme\checkBoxChecked.png
+Resources\TS Theme\checkBoxCheckedD.png
+Resources\TS Theme\checkBoxClear.png
+Resources\TS Theme\checkBoxClearD.png
+Resources\TS Theme\CnCNetLobby.ini
+Resources\TS Theme\comboBoxArrow.png
+Resources\TS Theme\dropdown.wav
+Resources\TS Theme\DTACnCNetClient.ini
+Resources\TS Theme\ExtrasWindow.ini
+Resources\TS Theme\facebookActive.png
+Resources\TS Theme\facebookInactive.png
+Resources\TS Theme\filterActive.png
+Resources\TS Theme\filterInactive.png
+Resources\TS Theme\forumsActive.png
+Resources\TS Theme\forumsInactive.png
+Resources\TS Theme\GenericWindow.ini
+Resources\TS Theme\glow_b.png
+Resources\TS Theme\glow_bl.png
+Resources\TS Theme\glow_br.png
+Resources\TS Theme\glow_l.png
+Resources\TS Theme\glow_r.png
+Resources\TS Theme\glow_t.png
+Resources\TS Theme\glow_tl.png
+Resources\TS Theme\glow_tr.png
+Resources\TS Theme\googlePlusActive.png
+Resources\TS Theme\googlePlusInactive.png
+Resources\TS Theme\LANLobby.ini
+Resources\TS Theme\leftbar.png
+Resources\TS Theme\lsbg.png
+Resources\TS Theme\lslogo-cn.png
+Resources\TS Theme\lslogo-de.png
+Resources\TS Theme\lslogo-fr.png
+Resources\TS Theme\lslogo.png
+Resources\TS Theme\lstext.png
+Resources\TS Theme\MainMenu.ini
+Resources\TS Theme\MainMenuTheme.wma
+Resources\TS Theme\MainMenuTheme.xnb
+Resources\TS Theme\moddbActive.png
+Resources\TS Theme\moddbInactive.png
+Resources\TS Theme\openedComboBoxArrow.png
+Resources\TS Theme\rightbar.png
+Resources\TS Theme\sbBackground.png
+Resources\TS Theme\sbDownArrow.png
+Resources\TS Theme\sbMiddle.png
+Resources\TS Theme\sbThumbBottom.png
+Resources\TS Theme\sbThumbTop.png
+Resources\TS Theme\sbUpArrow.png
+Resources\TS Theme\slocindicator.png
+Resources\TS Theme\slocindicator1.png
+Resources\TS Theme\slocindicator2.png
+Resources\TS Theme\slocindicator3.png
+Resources\TS Theme\slocindicator4.png
+Resources\TS Theme\slocindicator5.png
+Resources\TS Theme\slocindicator6.png
+Resources\TS Theme\slocindicator7.png
+Resources\TS Theme\slocindicator8.png
+Resources\TS Theme\slocindicatorc.png
+Resources\TS Theme\slocindicatorh.png
+Resources\TS Theme\sortAlphaAsc.png
+Resources\TS Theme\sortAlphaDesc.png
+Resources\TS Theme\sortAlphaNone.png
+Resources\TS Theme\StatisticsWindow.ini
+Resources\TS Theme\trackbarButton.png
+Resources\TS Theme\trackbarButton_difficulty.png
+Resources\TS Theme\twitterActive.png
+Resources\TS Theme\twitterInactive.png
+Resources\TS Theme\youtubeActive.png
+Resources\TS Theme\youtubeInactive.png
+Resources\TS Theme\MainMenu\back.png
+Resources\TS Theme\MainMenu\back_c.png
+Resources\TS Theme\MainMenu\button.wav
+Resources\TS Theme\MainMenu\buttons (old shadow).zip
+Resources\TS Theme\MainMenu\buttons (soft shadows).zip
+Resources\TS Theme\MainMenu\campaign.png
+Resources\TS Theme\MainMenu\campaign_c.png
+Resources\TS Theme\MainMenu\cncnet.png
+Resources\TS Theme\MainMenu\cncnet_c.png
+Resources\TS Theme\MainMenu\credits.png
+Resources\TS Theme\MainMenu\credits_c.png
+Resources\TS Theme\MainMenu\dbak.png
+Resources\TS Theme\MainMenu\exitgame.png
+Resources\TS Theme\MainMenu\exitgame_c.png
+Resources\TS Theme\MainMenu\extras.png
+Resources\TS Theme\MainMenu\extras_c.png
+Resources\TS Theme\MainMenu\fstitle.png
+Resources\TS Theme\MainMenu\lan.png
+Resources\TS Theme\MainMenu\lan_c.png
+Resources\TS Theme\MainMenu\loadmission.png
+Resources\TS Theme\MainMenu\loadmission_c.png
+Resources\TS Theme\MainMenu\Logo-CN.png
+Resources\TS Theme\MainMenu\Logo-DE.png
+Resources\TS Theme\MainMenu\Logo-FR.png
+Resources\TS Theme\MainMenu\Logo.png
+Resources\TS Theme\MainMenu\mainmenubg.old.png
+Resources\TS Theme\MainMenu\mainmenubg.png
+Resources\TS Theme\MainMenu\mainmenubg.psd
+Resources\TS Theme\MainMenu\mainmenuebg.png
+Resources\TS Theme\MainMenu\mapeditor.png
+Resources\TS Theme\MainMenu\mapeditor_c.png
+Resources\TS Theme\MainMenu\options.png
+Resources\TS Theme\MainMenu\options_c.png
+Resources\TS Theme\MainMenu\playonline.png
+Resources\TS Theme\MainMenu\playonline_c.png
+Resources\TS Theme\MainMenu\skirmish.png
+Resources\TS Theme\MainMenu\skirmish_c.png
+Resources\TS Theme\MainMenu\statistics.png
+Resources\TS Theme\MainMenu\statistics_c.png
+Resources\TS Theme\MainMenu\title.png
+Resources\TS Theme\MainMenu\tsfback.png
+Resources\TS Theme\MainMenu\tstback.png
+
+Map Renderer\changelog.txt
+Map Renderer\CNCMaps.Engine.dll
+Map Renderer\CNCMaps.FileFormats.dll
+Map Renderer\CNCMaps.Renderer.exe
+Map Renderer\CNCMaps.Renderer.GUI.exe
+Map Renderer\CNCMaps.Shared.dll
+Map Renderer\gui_settings.xml
+Map Renderer\modconfig.xml
+Map Renderer\NLog.dll
+Map Renderer\OpenTK.dll
+Map Renderer\OpenTK.dll.config
+Map Renderer\README.html
+Map Renderer\tstunnelwithtop.mix
+
+Resources\Binaries\Windows\DTAConfig.dll
+Resources\Binaries\Windows\DTAConfig.pdb
+Resources\Binaries\OpenGL\DTAConfig.dll
+Resources\Binaries\OpenGL\DTAConfig.pdb
+Resources\Binaries\XNA\DTAConfig.dll
+Resources\Binaries\XNA\DTAConfig.pdb
+Resources\BinariesNET8\Windows\DTAConfig.dll
+Resources\BinariesNET8\Windows\DTAConfig.pdb
+Resources\BinariesNET8\OpenGL\DTAConfig.dll
+Resources\BinariesNET8\OpenGL\DTAConfig.pdb
+Resources\BinariesNET8\UniversalGL\DTAConfig.dll
+Resources\BinariesNET8\UniversalGL\DTAConfig.pdb
+Resources\BinariesNET8\XNA\DTAConfig.dll
+Resources\BinariesNET8\XNA\DTAConfig.pdb
+
+[RenameFolder]
+
+[RenameAndMerge]
+
+[DeleteFolderIfEmpty]
+Resources\TS Theme\MainMenu
+Resources\TS Theme
+Map Editor\ForWindows10
+Map Renderer
+
+[ForceDeleteFolder]

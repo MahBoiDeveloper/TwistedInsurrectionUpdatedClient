@@ -130,7 +130,7 @@ jobs:
                 # If not exist, create
                 if ($deleteSectionIndex -eq -1)
                 {
-                  $updateexecContent_old += [Environment]::NewLine 
+                  $updateexecContent_old += [Environment]::NewLine
                   $updateexecContent_old += "[Delete]"
                   $deleteSectionIndex = $updateexecContent_old.IndexOf("[Delete]")
                 }
