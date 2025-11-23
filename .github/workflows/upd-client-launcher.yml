@@ -13,7 +13,8 @@ on:
 
 env:
   CLIENT_PATH: . # Do not add trailing slash
-  LAUNCHER_NAME: TwistedInsurrection.exe
+  LAUNCHER_NAME: TwistedInsurrection.exe # Full launcher filename
+  ICON_NAME: clienticon.ico # Full icon filename in the Resources folder
   UPDATE_BRANCH_NAME: update-client-launcher # The workflow adds the release tag after this value, i.e. "update-client-launcher-2.12.13"
   TARGET_BRANCH: main # Into this branch workflow should create pull request for merge
   COMMIT_MESSAGE: Update client launcher to the latest version
@@ -90,9 +91,9 @@ jobs:
         rm CnCNet*.zip
 
         7z x icon-changer*.zip
-        & ./icon-changer.exe "${{ env.CLIENT_PATH }}\Resources\clienticon.ico" "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}"
-        rm icon-changer*.zip
+        & ./icon-changer.exe "${{ env.CLIENT_PATH }}\Resources\${{ env.ICON_NAME }}" "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}"
         rm icon-changer.exe
+        rm icon-changer*.zip
 
         # Commit changes
         git add *
