@@ -35,19 +35,18 @@ jobs:
     
     - name: Download Latest Release
       id: download
-      uses: robinraju/release-downloader@v1
-      with:
-        repository: CnCNet/xna-cncnet-client-launcher
-        latest: true
-        preRelease: true
-        fileName: CnCNet*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $tag_name = (gh release list --repo CnCNet/xna-cncnet-client-launcher --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName')
+        gh release download $tag_name --repo CnCNet/xna-cncnet-client-launcher --pattern "CnCNet*"
+        "tag_name=$tag_name" >> $env:GITHUB_OUTPUT
 
     - name: Download Icon Changer
-      uses: robinraju/release-downloader@v1
-      with:
-        repository: stefanGaina/icon-changer
-        tag: 'v1.1.0'
-        fileName: icon-changer*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release download v1.1.0 --repo stefanGaina/icon-changer --pattern "icon-changer*"
 
     - name: Open PR
       env:

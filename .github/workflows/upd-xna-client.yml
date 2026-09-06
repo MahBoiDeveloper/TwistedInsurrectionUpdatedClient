@@ -33,12 +33,12 @@ jobs:
     
     - name: Download Latest Release
       id: download
-      uses: robinraju/release-downloader@v1
-      with:
-        repository: CnCNet/xna-cncnet-client
-        latest: true
-        preRelease: true
-        fileName: xna-cncnet-client*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $tag_name = (gh release list --repo CnCNet/xna-cncnet-client --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName')
+        gh release download $tag_name --repo CnCNet/xna-cncnet-client --pattern "xna*"
+        "tag_name=$tag_name" >> $env:GITHUB_OUTPUT
 
     - name: Open PR
       env:
