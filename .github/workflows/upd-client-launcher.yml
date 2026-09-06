@@ -57,6 +57,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         gh release download v1.1.0 --repo stefanGaina/icon-changer --pattern "icon-changer*"
+        7z x icon-changer*.zip
+        rm icon-changer*.zip
 
     - name: Open PR
       env:
@@ -95,15 +97,14 @@ jobs:
         # Make update branch
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}-$downloadVersion
 
-        # Delete old binaries, unpack archive, remove archive
+        # Replace old binaries, remove unpacked folder
         mv -Force "TEMPORARY\CnCNet.LauncherStub.exe"        "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}"
         mv -Force "TEMPORARY\CnCNet.LauncherStub.exe.config" "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}.config"
         rm -r -fo TEMPORARY
 
-        7z x icon-changer*.zip
+        # Patch the client's launcher icon and remove the icon-changer
         & ./icon-changer.exe "${{ env.CLIENT_PATH }}\Resources\${{ env.ICON_NAME }}" "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}"
         rm icon-changer.exe
-        rm icon-changer*.zip
 
         # Commit changes
         git add *

@@ -86,7 +86,7 @@ jobs:
         # Make update branch
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}
         
-        # Delete old binaries, unpack archive, remove archive
+        # Delete old binaries, copy new one, remove temporary folder
         rm -r -fo "$clientDir\Resources\Binaries"
         rm -r -fo "$clientDir\Resources\BinariesNET8"
         cp -r -fo "TEMPORARY\Resources\*" "$clientDir\Resources\"
