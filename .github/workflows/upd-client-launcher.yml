@@ -44,6 +44,12 @@ jobs:
       run: |
         $tag_name = (gh release list --repo CnCNet/xna-cncnet-client-launcher --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName')
         gh release download $tag_name --repo CnCNet/xna-cncnet-client-launcher --pattern "CnCNet*"
+
+        7z x CnCNet*.zip -y -oTEMPORARY
+        $product_version = (Get-Item -Path "TEMPORARY\CnCNet.LauncherStub.exe").VersionInfo.ProductVersion
+        rm CnCNet*.zip
+
+        "product_version=$product_version" >> $env:GITHUB_OUTPUT
         "tag_name=$tag_name" >> $env:GITHUB_OUTPUT
 
     - name: Download Icon Changer
@@ -59,8 +65,8 @@ jobs:
         $repoDir = (Get-Location).Path
         $clientDir = $repoDir + "\${{ env.CLIENT_PATH }}"
         $launcher = "${{ env.LAUNCHER_NAME }}"
-        $currentVersion = ((Get-Item -Path "$clientDir\$launcher").VersionInfo.ProductVersion).Split("+")[0] -Replace "\.0$", ""
-        $downloadVersion = '${{ steps.download.outputs.tag_name }}'.Trim("v")
+        $currentVersion = ((Get-Item -Path "$clientDir\$launcher").VersionInfo.ProductVersion)
+        $downloadVersion = '${{ steps.download.outputs.product_version }}'
 
         echo "Current launcher version: '$currentVersion'"
         echo "Downloaded launcher version: '$downloadVersion'"
@@ -90,11 +96,9 @@ jobs:
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}-$downloadVersion
 
         # Delete old binaries, unpack archive, remove archive
-        7z x CnCNet*.zip -y -oTEMPORARY
         mv -Force "TEMPORARY\CnCNet.LauncherStub.exe"        "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}"
         mv -Force "TEMPORARY\CnCNet.LauncherStub.exe.config" "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}.config"
         rm -r -fo TEMPORARY
-        rm CnCNet*.zip
 
         7z x icon-changer*.zip
         & ./icon-changer.exe "${{ env.CLIENT_PATH }}\Resources\${{ env.ICON_NAME }}" "${{ env.CLIENT_PATH }}\${{ env.LAUNCHER_NAME }}"
