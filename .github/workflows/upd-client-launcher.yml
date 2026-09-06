@@ -29,6 +29,8 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v7
       with:
+        ref: ${{ env.TARGET_BRANCH }}
+        fetch-depth: 0
         lfs: true
     
     - name: Download Latest Release
@@ -51,8 +53,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git checkout ${{ env.TARGET_BRANCH }}
-
         $repoDir = (Get-Location).Path
         $clientDir = $repoDir + "\${{ env.CLIENT_PATH }}"
         $launcher = "${{ env.LAUNCHER_NAME }}"
