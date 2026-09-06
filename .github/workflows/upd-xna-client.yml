@@ -11,6 +11,10 @@ on:
   schedule:
   - cron: "0 0 * * *" # Starts everyday at 00:00 UTC+0
 
+permissions:
+  contents: write
+  pull-requests: write
+
 env:
   CLIENT_PATH: # Do not add trailing slash
   UPDATE_BRANCH_NAME: update-client-binaries # The workflow adds the release tag after this value, i.e. "update-client-binaries-2.12.13"
@@ -33,12 +37,12 @@ jobs:
     
     - name: Download Latest Release
       id: download
-      uses: robinraju/release-downloader@v1
-      with:
-        repository: CnCNet/xna-cncnet-client
-        latest: true
-        preRelease: true
-        fileName: xna-cncnet-client*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $tag_name = (gh release list --repo CnCNet/xna-cncnet-client --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName')
+        gh release download $tag_name --repo CnCNet/xna-cncnet-client --pattern "xna*"
+        "tag_name=$tag_name" >> $env:GITHUB_OUTPUT
 
     - name: Open PR
       env:
@@ -184,7 +188,8 @@ jobs:
         }
 
         # Commit changes if there exist updateexec and client binaries have new deleted files
-        git commit --amend -am "${{ env.COMMIT_MESSAGE }}"
+        git add *
+        git commit -m "${{ env.COMMIT_MESSAGE }} ${{ steps.download.outputs.tag_name }}"
 
         # Push changes
         git push --force origin ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}
