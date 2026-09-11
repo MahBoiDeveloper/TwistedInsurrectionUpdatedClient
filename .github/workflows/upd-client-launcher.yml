@@ -67,7 +67,7 @@ jobs:
         $repoDir = (Get-Location).Path
         $clientDir = $repoDir + "\${{ env.CLIENT_PATH }}"
         $launcher = "${{ env.LAUNCHER_NAME }}"
-        $currentVersion = ((Get-Item -Path "$clientDir\$launcher").VersionInfo.ProductVersion)
+        $currentVersion = (Test-Path "$clientDir\$launcher") ? (Get-Item -Path "$clientDir\$launcher").VersionInfo.ProductVersion : ""
         $downloadVersion = '${{ steps.download.outputs.product_version }}'
 
         echo "Current launcher version: '$currentVersion'"

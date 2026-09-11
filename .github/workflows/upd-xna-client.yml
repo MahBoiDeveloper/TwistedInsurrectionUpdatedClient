@@ -56,7 +56,7 @@ jobs:
       run: |
         $repoDir = (Get-Location).Path
         $clientDir = $repoDir + "\${{ env.CLIENT_PATH }}"
-        $currentVersion = (Get-Item -Path "$clientDir\Resources\clientdx.exe").VersionInfo.ProductVersion
+        $currentVersion = (Test-Path "$clientDir\Resources\clientdx.exe") ? (Get-Item -Path "$clientDir\Resources\clientdx.exe").VersionInfo.ProductVersion : ""
         $downloadVersion = '${{ steps.download.outputs.product_version }}'
         
         echo "Current client version: '$currentVersion'"
@@ -87,8 +87,8 @@ jobs:
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}
         
         # Delete old binaries, copy new one, remove temporary folder
-        rm -r -fo "$clientDir\Resources\Binaries"
-        rm -r -fo "$clientDir\Resources\BinariesNET8"
+        rm -r -fo "$clientDir\Resources\Binaries" *> $null
+        rm -r -fo "$clientDir\Resources\BinariesNET8" *> $null
         cp -r -fo "TEMPORARY\Resources\*" "$clientDir\Resources\"
         rm -r -fo TEMPORARY
 
