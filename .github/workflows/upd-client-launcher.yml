@@ -23,7 +23,7 @@ env:
   TARGET_BRANCH: main # Into this branch workflow should create pull request for merge
   COMMIT_MESSAGE: Update client launcher to the version
   PR_TITLE: Update client launcher to the version # The workflow adds the release tag after this value, i.e. "Update client binaries to the launcher 2.12.13"
-  PR_BODY: This is an automatic pull request to update client launcher to the latest release published in [CnCNet/xna-cncnet-client-launcher](https://github.com/CnCNet/xna-cncnet-client-launcher) repository.
+  PR_BODY: This is an automatic pull request to update client launcher to the latest release published in [CnCNet/xna-cncnet-client-launcher](https://github.com/CnCNet/xna-cncnet-client-launcher/releases/tag/@) repository.
 
 jobs:
   publish-update-pr:
@@ -123,4 +123,4 @@ jobs:
         } | Receive-Job -Wait -AutoRemoveJob
 
         # Open a PR
-        gh pr create -B ${{ env.TARGET_BRANCH }} -H ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }} --title '${{ env.PR_TITLE }} ${{ steps.download.outputs.tag_name }}' --body '${{ env.PR_BODY }}'
+        gh pr create -B ${{ env.TARGET_BRANCH }} -H ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }} --title '${{ env.PR_TITLE }} ${{ steps.download.outputs.tag_name }}' --body "${{ env.PR_BODY }}".Replace("@", "${{ steps.download.outputs.tag_name }}")
