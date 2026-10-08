@@ -91,8 +91,8 @@ jobs:
         }
         
         # Configure git
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name "CnCNet"
+        git config user.email "119443440+CnCNet-CI@users.noreply.github.com"
 
         # Make update branch
         git checkout -b ${{ env.UPDATE_BRANCH_NAME }}-${{ steps.download.outputs.tag_name }}
